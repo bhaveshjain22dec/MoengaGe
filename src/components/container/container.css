@@ -1,0 +1,15 @@
+.widget {
+  width: calc(50% - 20px);
+  box-shadow: 3px 3px 5px 0 rgb(0 0 0 / 25%);
+}
+.widget header {
+  background: #144c88;
+  padding: 1em 1.5em;
+  border-top: 4px solid #7dd343;
+  color: #fff;
+  position: relative;
+}
+.info {
+  background: #20649b;
+  color: #fff;
+}

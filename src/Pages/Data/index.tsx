@@ -1,18 +1,53 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 
-// import useActivity from '../../hooks/data';
-import axios from 'axios';
+import useActivity from '../../hooks/data';
+import Container from '../../components/container';
 
 const Data: React.FC = () => {
-  const getHighLightData = () => {
-    const data = axios.get('http://13.232.99.42/get_highlight');
-    return data;
-  };
+  const {
+    activities,
+    buyer,
+    countries,
+    income,
+    getHighLight,
+    getBuyer,
+    getCountries,
+    getIncome,
+  } = useActivity();
+
   useEffect(() => {
-    console.log(getHighLightData());
+    getHighLight();
+    getBuyer();
+    getCountries();
+    getIncome();
   }, []);
 
-  return <div>xfxfgsf</div>;
+  return (
+    <>
+      <div className="">
+        <Container
+          headerValue="Highlights"
+          url="get_highlight"
+          propsData={activities}
+        />
+      </div>
+      <div className="">
+        <Container headerValue="Buyers" url="get_buyer" propsData={buyer} />
+      </div>
+
+      <div>
+        <Container
+          headerValue="Countries"
+          url="get_country"
+          propsData={countries}
+        />
+      </div>
+      <div>
+        <Container headerValue="Income" url="get_income" propsData={income} />
+      </div>
+    </>
+  );
 };
 
 export default Data;

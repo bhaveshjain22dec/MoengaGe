@@ -12,42 +12,56 @@ export interface IUserData {
 
 type UseActivityReturnType = {
   activities: IUserData[];
+  buyer: IUserData[];
+  countries: IUserData[];
+  income: IUserData[];
   getHighLight: () => Promise<void>;
+  getBuyer: () => Promise<void>;
+  getCountries: () => Promise<void>;
+  getIncome: () => Promise<void>;
 };
 
 const useActivity = (): UseActivityReturnType => {
   const [activities, setActivities] = useState([] as IUserData[]);
+  const [buyer, setBuyer] = useState([] as IUserData[]);
+  const [countries, setCountries] = useState([] as IUserData[]);
+  const [income, setIncome] = useState([] as IUserData[]);
 
   const getHighLight = async (): Promise<void> => {
     const { status, data } = await api.get('/get_highlight');
-    console.log(data);
 
     if (status !== 200) throw new Error('Error getting activities');
-    setActivities(data);
+    setActivities(data.data);
+  };
 
-    // const tempActivities = data.map((activity: ActivityJSONResponseType) => ({
-    //   activityId: activity.activity_id,
-    //   createdBy: UserJSONResponseParser(activity.user),
-    //   createdAt: activity.created_at,
-    //   action: activity.action,
-    //   description: activity.description,
-    //   modelId: activity.model_id,
-    //   modelType: activity.model_type,
-    //   collaborationId: activity.collaboration_id,
-    // }));
+  const getBuyer = async (): Promise<void> => {
+    const { status, data } = await api.get('/get_buyer');
 
-    // const generatedOptions = generateDropdownOptions(tempActivities);
+    if (status !== 200) throw new Error('Error getting activities');
+    setBuyer(data.data);
+  };
+  const getCountries = async (): Promise<void> => {
+    const { status, data } = await api.get('/get_country');
 
-    // setOptions(generatedOptions);
-    // setActivities(tempActivities);
-    // setFilteredActivities(tempActivities);
-    // setVisibleActivities(tempActivities);
+    if (status !== 200) throw new Error('Error getting activities');
+    setCountries(data.data);
+  };
+  const getIncome = async (): Promise<void> => {
+    const { status, data } = await api.get('/get_income');
+
+    if (status !== 200) throw new Error('Error getting activities');
+    setIncome(data.data);
   };
 
   return {
     activities,
-
+    buyer,
+    countries,
+    income,
     getHighLight,
+    getBuyer,
+    getCountries,
+    getIncome,
   };
 };
 

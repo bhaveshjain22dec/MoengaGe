@@ -10,13 +10,16 @@ export function registerInterceptorsWithHistory(history: History): void {
     (error) => {
       const { response } = error;
       if (response?.status === 401) {
-        // const redirectTo = response.data.need2fa ? '/login-2fa' : '/login';
-        // history.push(redirectTo);
+        const redirectTo = response.data.need2fa ? '/login-2fa' : '/login';
+        history.push(redirectTo);
       }
       return Promise.reject(error);
     },
   );
 }
 
+export function setApiToken(token: string): void {
+  api.defaults.headers.Authorization = `Bearer ${token}`;
+}
 
 export default api;
